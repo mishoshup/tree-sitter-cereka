@@ -1,0 +1,38 @@
+{
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
+  "grammars": [
+    {
+      "name": "cereka",
+      "camelcase": "Cereka",
+      "title": "Cereka",
+      "scope": "source.crka",
+      "file-types": ["crka"],
+      "injection-regex": "^cereka$",
+      "class-name": "TreeSitterCereka"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "Script language for Cereka, a simple visual novel engine written in C++",
+    "authors": [
+      {
+        "name": "Danial Haikal",
+        "email": "danialhaikalsanusi@gmail.com"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/mishoshup/tree-sitter-cereka.git"
+    }
+  },
+  "bindings": {
+    "c": true,
+    "go": true,
+    "node": true,
+    "python": true,
+    "rust": true,
+    "swift": true,
+    "zig": false
+  }
+}
+

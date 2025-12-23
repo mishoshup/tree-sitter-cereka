@@ -1,0 +1,7 @@
+label start
+bg classroom.jpg
+char Alice Alice_normal.png
+say Alice "Hello! Welcome to the classroom."
+narrate "Alice waves at you."
+say Alice "Umm, Fuck you."
+end
