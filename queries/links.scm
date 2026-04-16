@@ -12,9 +12,11 @@
 (button (identifier) @reference.label)
 
 ; References to variables
-(set_stmt value: (identifier) @reference.variable)
+(set_stmt value: (value) @reference.variable)
+(arithmetic_stmt variable: (identifier) @reference.variable)
+(arithmetic_stmt value: (value) @reference.variable)
 (if_block variable: (identifier) @reference.variable)
-(if_block value: (identifier) @reference.variable)
+(if_block value: (value) @reference.variable)
 
 ; File references
 (call file: (filename) @reference.file)

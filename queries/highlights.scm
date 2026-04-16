@@ -44,6 +44,7 @@
 ;; =====================
 
 (comparison_op) @operator
+(arithmetic_op) @operator
 
 ;; =====================
 ;; Named fields
@@ -63,9 +64,14 @@
 
 ; Variables
 (set_stmt variable: (identifier) @variable)
-(set_stmt value: (identifier) @string)
+(set_stmt value: (value) @string)
+(arithmetic_stmt variable: (identifier) @variable)
+(arithmetic_stmt value: (value) @number)
+(arithmetic_stmt value: (binary_expr) @number)
+(binary_expr left: (value) @number)
+(binary_expr right: (value) @number)
 (if_block variable: (identifier) @variable)
-(if_block value: (identifier) @string)
+(if_block value: (value) @string)
 
 ;; =====================
 ;; Filenames
