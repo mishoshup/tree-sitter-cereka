@@ -28,7 +28,8 @@ const KEYWORDS = [
 
 const UI_ELEMENTS = ["textbox", "namebox", "button", "font"];
 const POSITIONS = ["left", "center", "right"];
-const OPERATORS = ["==", "!="];
+const OPERATORS = ["==", "!=", ">", "<", ">=", "<="];
+const ARITHMETIC_OPS = ["+", "-", "*", "/"];
 
 let parser = null;
 let Cereka = null;
@@ -118,7 +119,10 @@ function describeMissing(type) {
     case "filename":     return "Expected a filename, e.g. backgrounds/forest.png";
     case "number":       return "Expected a number";
     case "position":     return "Expected a position: left, center, or right";
-    case "comparison_op": return "Expected a comparison operator: == or !=";
+    case "comparison_op": return "Expected a comparison operator: ==, !=, >, <, >=, or <=";
+    case "arithmetic_op": return "Expected an arithmetic operator: +, -, *, or /";
+    case "value":        return "Expected a value (identifier, number, or string)";
+    case "expr":         return "Expected an expression (value or value op value)";
     case "ui_element":   return "Expected a UI element: textbox, namebox, button, or font";
     default:             return `Expected ${type}`;
   }
@@ -177,12 +181,15 @@ function describeErrorNode(node) {
         return "set: expected variable and value, e.g. set flag_met true";
       return "set: expected a value after variable name, e.g. set flag_met true";
 
+    case "$":
+      return "arithmetic: expected $ variable op= value, e.g. $ gold += 50";
+
     case "if": {
       if (named.length === 0)
-        return "if: expected variable == value ... endif";
+        return "if: expected variable op value ... endif";
       if (named.length === 1)
-        return "if: expected comparison operator (== or !=) after variable";
-      if (named.length >= 2 && !namedTypes.includes("identifier"))
+        return "if: expected comparison operator (==, !=, >, <, >=, or <=) after variable";
+      if (named.length >= 2 && !namedTypes.includes("value"))
         return "if: expected a value after the comparison operator";
       return "if: missing endif";
     }
@@ -368,6 +375,15 @@ connection.onHover((params) => {
       },
     };
   }
+
+  if (ARITHMETIC_OPS.includes(text)) {
+    return {
+      contents: {
+        kind: MarkupKind.Markdown,
+        value: `**Arithmetic Operator: ${text}**\n\nUsed in arithmetic statements like \`$ gold ${text}= 50\``,
+      },
+    };
+  }
   
   return null;
 });
@@ -426,6 +442,14 @@ connection.onCompletion((params) => {
     items.push({
       label: op,
       kind: CompletionItemKind.Operator,
+    });
+  }
+
+  for (const op of ARITHMETIC_OPS) {
+    items.push({
+      label: op,
+      kind: CompletionItemKind.Operator,
+      detail: "arithmetic",
     });
   }
   
@@ -531,6 +555,17 @@ connection.onDocumentSymbol((params) => {
         kind: SymbolKind.Function,
         range: nodeToRange(node),
         selectionRange: nodeToRange(node),
+      });
+    } else if (node.type === "arithmetic_stmt") {
+      const varNode = node.childForFieldName("variable");
+      const opNode = node.childForFieldName("op");
+      const name = varNode ? getNodeText(doc, varNode) : "calc";
+      const op = opNode ? getNodeText(doc, opNode) : "";
+      symbols.push({
+        name: `$${name} ${op}= ...`,
+        kind: SymbolKind.Variable,
+        range: nodeToRange(node),
+        selectionRange: varNode ? nodeToRange(varNode) : nodeToRange(node),
       });
     }
     
