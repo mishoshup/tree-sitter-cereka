@@ -1,7 +1,106 @@
-label start
-bg classroom.jpg
-char Alice Alice_normal.png
-say Alice "Hello! Welcome to the classroom."
-narrate "Alice waves at you."
-say Alice "Umm, Fuck you."
+; example.crka — showcases every Cereka .crka syntax construct
+
+; ── UI theme (usually in ui.crka, included here) ────────────────────────────
+ui textbox
+    color          0 0 0 160
+    y              75%
+    h              25%
+    text_margin_x  80
+    text_color     255 255 255 255
+    image          assets/ui/textbox.png
+
+ui namebox
+    color       30 30 100 255
+    x           50
+    y_offset    -65
+    w           260
+    h           52
+    text_color  255 220 120 255
+
+ui button
+    color       20 80 120 255
+    w           560
+    h           72
+    text_color  255 255 255 255
+    hover_image assets/ui/button_hover.png
+
+ui font
+    size 36
+
+; ── Entry point ──────────────────────────────────────────────────────────────
+include ui.crka
+
+label main_menu
+
+bg placeholder_bg.png
+
+menu
+    button "New Game"  goto new_game
+    button "Load Game" goto do_load
+    button "Quit"      exit
+
+label do_load
+load_menu
+jump main_menu
+
+; ── Story ────────────────────────────────────────────────────────────────────
+label new_game
+
+bgm placeholder_bgm.wav
+
+bg placeholder_bg.png
+narrate "Welcome to Cereka."
+
+bg placeholder_bg.png fade 1.5
+narrate "That background faded in over 1.5 seconds."
+
+char Alice left placeholder_char.png
+say Alice "I can stand on the left..."
+char Alice center placeholder_char.png
+say Alice "...the center..."
+char Alice right placeholder_char.png
+say Alice "...or the right!"
+char Alice left placeholder_char.png
+say Alice "Let me move aside."
+
+sfx placeholder_sfx.wav
+
+call scene_two.crka
+
+narrate "Returned from scene_two.crka."
+
+set choice none
+
+menu
+    bg placeholder_bg.png fade 0.5
+    button "Explore" goto explore
+    button "Skip"    goto the_end
+    button "Quit"    exit
+
+label explore
+
+hide char Alice
+
+set choice explored
+
+if choice == explored
+    narrate "You chose to explore!"
+endif
+
+if choice != skipped
+    narrate "This shows because choice != skipped."
+endif
+
+save_menu
+save 1
+
+jump the_end
+
+label the_end
+
+stop_bgm
+load 1
+load_menu
+
+narrate "The end."
 end

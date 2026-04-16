@@ -1,6 +1,32 @@
 [
   {
-    "type": "bg",
+    "type": "bg_stmt",
+    "named": true,
+    "fields": {
+      "duration": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "file": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "filename",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "bgm",
     "named": true,
     "fields": {
       "file": {
@@ -16,38 +42,12 @@
     }
   },
   {
-    "type": "char",
-    "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "pose": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "filename",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "choice",
+    "type": "button",
     "named": true,
     "fields": {
       "target": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "identifier",
@@ -61,6 +61,141 @@
         "types": [
           {
             "type": "string",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "call",
+    "named": true,
+    "fields": {
+      "file": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "filename",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "char_stmt",
+    "named": true,
+    "fields": {
+      "file": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "filename",
+            "named": true
+          }
+        ]
+      },
+      "id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "position": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "position",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "comparison_op",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "hide_char",
+    "named": true,
+    "fields": {
+      "id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "if_block",
+    "named": true,
+    "fields": {
+      "op": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "comparison_op",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "variable": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "include",
+    "named": true,
+    "fields": {
+      "file": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "filename",
             "named": true
           }
         ]
@@ -84,7 +219,7 @@
     }
   },
   {
-    "type": "label",
+    "type": "label_stmt",
     "named": true,
     "fields": {
       "name": {
@@ -100,6 +235,22 @@
     }
   },
   {
+    "type": "load_stmt",
+    "named": true,
+    "fields": {
+      "slot": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "menu",
     "named": true,
     "fields": {},
@@ -108,10 +259,40 @@
       "required": true,
       "types": [
         {
-          "type": "choice",
+          "type": "button",
+          "named": true
+        },
+        {
+          "type": "menu_bg",
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "menu_bg",
+    "named": true,
+    "fields": {
+      "duration": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "file": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "filename",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -124,6 +305,27 @@
         "types": [
           {
             "type": "string",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "position",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "save_stmt",
+    "named": true,
+    "fields": {
+      "slot": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
             "named": true
           }
         ]
@@ -157,6 +359,48 @@
     }
   },
   {
+    "type": "set_stmt",
+    "named": true,
+    "fields": {
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "variable": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "sfx",
+    "named": true,
+    "fields": {
+      "file": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "filename",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "source_file",
     "named": true,
     "root": true,
@@ -181,11 +425,19 @@
       "required": true,
       "types": [
         {
-          "type": "bg",
+          "type": "bg_stmt",
           "named": true
         },
         {
-          "type": "char",
+          "type": "bgm",
+          "named": true
+        },
+        {
+          "type": "call",
+          "named": true
+        },
+        {
+          "type": "char_stmt",
           "named": true
         },
         {
@@ -193,11 +445,31 @@
           "named": true
         },
         {
+          "type": "hide_char",
+          "named": true
+        },
+        {
+          "type": "if_block",
+          "named": true
+        },
+        {
+          "type": "include",
+          "named": true
+        },
+        {
           "type": "jump",
           "named": true
         },
         {
-          "type": "label",
+          "type": "label_stmt",
+          "named": true
+        },
+        {
+          "type": "load_menu",
+          "named": true
+        },
+        {
+          "type": "load_stmt",
           "named": true
         },
         {
@@ -209,14 +481,113 @@
           "named": true
         },
         {
+          "type": "save_menu",
+          "named": true
+        },
+        {
+          "type": "save_stmt",
+          "named": true
+        },
+        {
           "type": "say",
+          "named": true
+        },
+        {
+          "type": "set_stmt",
+          "named": true
+        },
+        {
+          "type": "sfx",
+          "named": true
+        },
+        {
+          "type": "stop_bgm",
+          "named": true
+        },
+        {
+          "type": "ui_block",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "->",
+    "type": "ui_block",
+    "named": true,
+    "fields": {
+      "element": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ui_element",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "ui_property",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "ui_element",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "ui_property",
+    "named": true,
+    "fields": {
+      "path": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "filename",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "ui_value",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "!=",
+    "named": false
+  },
+  {
+    "type": "==",
     "named": false
   },
   {
@@ -224,7 +595,27 @@
     "named": false
   },
   {
+    "type": "bgm",
+    "named": false
+  },
+  {
+    "type": "button",
+    "named": false
+  },
+  {
+    "type": "call",
+    "named": false
+  },
+  {
+    "type": "center",
+    "named": false
+  },
+  {
     "type": "char",
+    "named": false
+  },
+  {
+    "type": "color",
     "named": false
   },
   {
@@ -237,12 +628,56 @@
     "named": true
   },
   {
+    "type": "endif",
+    "named": false
+  },
+  {
+    "type": "exit",
+    "named": false
+  },
+  {
+    "type": "fade",
+    "named": false
+  },
+  {
     "type": "filename",
     "named": true
   },
   {
+    "type": "font",
+    "named": false
+  },
+  {
+    "type": "goto",
+    "named": false
+  },
+  {
+    "type": "h",
+    "named": false
+  },
+  {
+    "type": "hide",
+    "named": false
+  },
+  {
+    "type": "hover_image",
+    "named": false
+  },
+  {
     "type": "identifier",
     "named": true
+  },
+  {
+    "type": "if",
+    "named": false
+  },
+  {
+    "type": "image",
+    "named": false
+  },
+  {
+    "type": "include",
+    "named": false
   },
   {
     "type": "jump",
@@ -253,7 +688,23 @@
     "named": false
   },
   {
+    "type": "left",
+    "named": false
+  },
+  {
+    "type": "load",
+    "named": false
+  },
+  {
+    "type": "load_menu",
+    "named": true
+  },
+  {
     "type": "menu",
+    "named": false
+  },
+  {
+    "type": "namebox",
     "named": false
   },
   {
@@ -261,19 +712,79 @@
     "named": false
   },
   {
+    "type": "number",
+    "named": true
+  },
+  {
+    "type": "right",
+    "named": false
+  },
+  {
+    "type": "save",
+    "named": false
+  },
+  {
+    "type": "save_menu",
+    "named": true
+  },
+  {
     "type": "say",
     "named": false
+  },
+  {
+    "type": "set",
+    "named": false
+  },
+  {
+    "type": "sfx",
+    "named": false
+  },
+  {
+    "type": "size",
+    "named": false
+  },
+  {
+    "type": "stop_bgm",
+    "named": true
   },
   {
     "type": "string",
     "named": true
   },
   {
-    "type": "{",
+    "type": "text_color",
     "named": false
   },
   {
-    "type": "}",
+    "type": "text_margin_x",
+    "named": false
+  },
+  {
+    "type": "textbox",
+    "named": false
+  },
+  {
+    "type": "ui",
+    "named": false
+  },
+  {
+    "type": "ui_value",
+    "named": true
+  },
+  {
+    "type": "w",
+    "named": false
+  },
+  {
+    "type": "x",
+    "named": false
+  },
+  {
+    "type": "y",
+    "named": false
+  },
+  {
+    "type": "y_offset",
     "named": false
   }
 ]
