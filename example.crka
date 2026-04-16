@@ -71,6 +71,22 @@ narrate "Returned from scene_two.crka."
 
 set choice none
 
+; Numeric variables - arithmetic and comparisons
+set gold 100
+set hp 100
+
+$ gold += 50
+$ hp -= 25
+$ gold = gold * 2
+
+if gold > 200
+    narrate "You're rich!"
+endif
+
+if hp <= 75
+    narrate "Your health is low."
+endif
+
 menu
     bg placeholder_bg.png fade 0.5
     button "Explore" goto explore

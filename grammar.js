@@ -32,6 +32,7 @@ module.exports = grammar({
         $.end,
         $.menu,
         $.set_stmt,
+        $.arithmetic_stmt,
         $.if_block,
         $.save_menu,
         $.load_menu,
@@ -106,7 +107,39 @@ module.exports = grammar({
       seq(
         "set",
         field("variable", $.identifier),
-        field("value", $.identifier),
+        field("value", $.value),
+      ),
+
+    // Arithmetic: $ var += value, $ var -= value, $ var *= value, $ var /= value, $ var = expr
+    arithmetic_stmt: ($) =>
+      choice(
+        // Compound assignment: $ var += value (etc)
+        seq(
+          "$",
+          field("variable", $.identifier),
+          field("op", $.arithmetic_op),
+          "=",
+          field("value", $.value),
+        ),
+        // Direct assignment: $ var = expr (defaults to +=)
+        seq(
+          "$",
+          field("variable", $.identifier),
+          "=",
+          field("value", $.expr),
+        ),
+      ),
+
+    arithmetic_op: (_) => choice("+", "-", "*", "/"),
+
+    // Expression: supports simple binary expressions like "gold * 2"
+    expr: ($) => choice($.value, $.binary_expr),
+
+    binary_expr: ($) =>
+      seq(
+        field("left", $.value),
+        field("op", $.arithmetic_op),
+        field("right", $.value),
       ),
 
     // ── Conditionals ─────────────────────────────────────────────────────────
@@ -115,12 +148,15 @@ module.exports = grammar({
         "if",
         field("variable", $.identifier),
         field("op", $.comparison_op),
-        field("value", $.identifier),
+        field("value", $.value),
         repeat($.statement),
         "endif",
       ),
 
-    comparison_op: (_) => choice("==", "!="),
+    comparison_op: (_) => choice("==", "!=", ">", "<", ">=", "<="),
+
+    // value can be identifier, number, or string
+    value: ($) => choice($.identifier, $.number, $.string),
 
     // ── Save / load ──────────────────────────────────────────────────────────
     save_menu: (_) => "save_menu",

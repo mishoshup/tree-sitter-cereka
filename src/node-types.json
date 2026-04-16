@@ -1,5 +1,50 @@
 [
   {
+    "type": "arithmetic_op",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "arithmetic_stmt",
+    "named": true,
+    "fields": {
+      "op": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "arithmetic_op",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "expr",
+            "named": true
+          },
+          {
+            "type": "value",
+            "named": true
+          }
+        ]
+      },
+      "variable": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "bg_stmt",
     "named": true,
     "fields": {
@@ -35,6 +80,42 @@
         "types": [
           {
             "type": "filename",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "binary_expr",
+    "named": true,
+    "fields": {
+      "left": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "value",
+            "named": true
+          }
+        ]
+      },
+      "op": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "arithmetic_op",
+            "named": true
+          }
+        ]
+      },
+      "right": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "value",
             "named": true
           }
         ]
@@ -125,6 +206,25 @@
     "fields": {}
   },
   {
+    "type": "expr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "binary_expr",
+          "named": true
+        },
+        {
+          "type": "value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "hide_char",
     "named": true,
     "fields": {
@@ -159,7 +259,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "value",
             "named": true
           }
         ]
@@ -367,7 +467,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "value",
             "named": true
           }
         ]
@@ -424,6 +524,10 @@
       "multiple": false,
       "required": true,
       "types": [
+        {
+          "type": "arithmetic_stmt",
+          "named": true
+        },
         {
           "type": "bg_stmt",
           "named": true
@@ -583,11 +687,74 @@
     }
   },
   {
+    "type": "value",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "!=",
     "named": false
   },
   {
+    "type": "$",
+    "named": false
+  },
+  {
+    "type": "*",
+    "named": false
+  },
+  {
+    "type": "+",
+    "named": false
+  },
+  {
+    "type": "-",
+    "named": false
+  },
+  {
+    "type": "/",
+    "named": false
+  },
+  {
+    "type": "<",
+    "named": false
+  },
+  {
+    "type": "<=",
+    "named": false
+  },
+  {
+    "type": "=",
+    "named": false
+  },
+  {
     "type": "==",
+    "named": false
+  },
+  {
+    "type": ">",
+    "named": false
+  },
+  {
+    "type": ">=",
     "named": false
   },
   {
